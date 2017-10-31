@@ -1,0 +1,17 @@
+machine:
+    environment:
+        MAX_RETRY: 4
+    java:
+        version: oraclejdk8
+
+dependencies:
+    pre:
+        - echo y | android update sdk --no-ui --all --filter "android-26,build-tools-26.0.2,tools,platform-tools,extra-android-m2repository"
+    cache_directories:
+        - ~/.android
+    override:
+        - ./gradlew app:dependencies
+
+test:
+    override:
+        - ./gradlew build assembleAndroidTest
