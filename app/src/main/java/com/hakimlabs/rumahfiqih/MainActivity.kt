@@ -3,6 +3,7 @@ package com.hakimlabs.rumahfiqih
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.hakimlabs.rumahfiqih.features.videos.ListVideoFragment
 import kotlinx.android.synthetic.main.activity_main.navigation
 
 class MainActivity : AppCompatActivity() {
@@ -11,6 +12,12 @@ class MainActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
+                    val fragment =
+                        supportFragmentManager.findFragmentByTag(LIST_VIDEO_FRAGMENT_TAG) as? ListVideoFragment
+                            ?: ListVideoFragment.newInstance()
+                    supportFragmentManager.beginTransaction()
+                        .add(fragment, LIST_VIDEO_FRAGMENT_TAG)
+                        .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_dashboard -> {
@@ -28,5 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+    }
+
+    companion object {
+        private const val LIST_VIDEO_FRAGMENT_TAG = "LIST_VIDEO_FRAGMENT_TAG"
     }
 }
