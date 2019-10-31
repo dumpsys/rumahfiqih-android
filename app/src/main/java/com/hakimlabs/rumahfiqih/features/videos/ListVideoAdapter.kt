@@ -1,23 +1,33 @@
 package com.hakimlabs.rumahfiqih.features.videos
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
+import com.hakimlabs.rumahfiqih.R
+import kotlinx.android.synthetic.main.item_video.view.title
+import kotlinx.android.synthetic.main.item_video.view.video_thumbnail
 
-internal class ListVideoAdapter: RecyclerView.Adapter<ListVideoAdapter.ViewHolder>() {
+internal class ListVideoAdapter(val videos: List<Video>, val imageLoader: RequestManager) :
+    RecyclerView.Adapter<ListVideoAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemCount() = videos.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val video = videos[position]
+        imageLoader.load(video.thumbnail).into(holder.thumbnail)
+        holder.title.text = video.title
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        var thumbnail: ImageView = itemView.video_thumbnail
+        var title: TextView = itemView.title
     }
 }

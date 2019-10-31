@@ -35,6 +35,9 @@ dependencies {
 
     // other third party libs
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 
     // test related dependencies
     testImplementation "junit:junit:4.12"

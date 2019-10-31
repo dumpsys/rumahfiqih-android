@@ -12,12 +12,12 @@ class MainActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    val fragment =
-                        supportFragmentManager.findFragmentByTag(LIST_VIDEO_FRAGMENT_TAG) as? ListVideoFragment
-                            ?: ListVideoFragment.newInstance()
-                    supportFragmentManager.beginTransaction()
-                        .add(fragment, LIST_VIDEO_FRAGMENT_TAG)
-                        .commit()
+                    supportFragmentManager.findFragmentByTag(LIST_VIDEO_FRAGMENT_TAG) as? ListVideoFragment
+                        ?: ListVideoFragment.newInstance().also {
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragment_container, it, LIST_VIDEO_FRAGMENT_TAG)
+                                .commit()
+                        }
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_dashboard -> {
@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportFragmentManager.findFragmentByTag(LIST_VIDEO_FRAGMENT_TAG) as? ListVideoFragment
+            ?: ListVideoFragment.newInstance().also {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, it, LIST_VIDEO_FRAGMENT_TAG)
+                    .commit()
+            }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
